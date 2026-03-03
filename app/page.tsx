@@ -21,6 +21,8 @@ export default function Home() {
 
   const customuseLink = "https://go.customuse.com/kliptt0-ezvj";
   const customuseCode = "KLIPT";
+  const customuseLocalImage = "/customuse_foto.jpg";
+  const customuseRemoteImage = "https://logo.clearbit.com/customuse.com";
 
   useEffect(() => {
     const update = () => {
@@ -165,12 +167,15 @@ export default function Home() {
             >
               <div className="flex items-center gap-3">
                 <img
-                  src="/customuse_foto.jpg"
+                  src={customuseLocalImage}
                   alt="Customuse"
                   className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover sm:hidden"
+                  onError={(e) => {
+                    e.currentTarget.src = customuseRemoteImage;
+                  }}
                 />
                 <img
-                  src="https://logo.clearbit.com/customuse.com"
+                  src={customuseRemoteImage}
                   alt="Customuse"
                   className="hidden h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover sm:block"
                 />
@@ -355,12 +360,15 @@ export default function Home() {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
               <div className="flex items-center gap-4">
                 <img
-                  src="/customuse_foto.jpg"
+                  src={customuseLocalImage}
                   alt="Customuse"
                   className="h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover sm:hidden"
+                  onError={(e) => {
+                    e.currentTarget.src = customuseRemoteImage;
+                  }}
                 />
                 <img
-                  src="https://logo.clearbit.com/customuse.com"
+                  src={customuseRemoteImage}
                   alt="Customuse"
                   className="hidden h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover sm:block"
                 />
