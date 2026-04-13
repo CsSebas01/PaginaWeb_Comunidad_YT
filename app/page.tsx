@@ -17,15 +17,18 @@ export default function Home() {
   const [ttOpen, setTtOpen] = useState(false);
   const [dcOpen, setDcOpen] = useState(false);
   const [mailOpen, setMailOpen] = useState(false);
+  const [sponsorOpen, setSponsorOpen] = useState(false);
+  const [activeSponsor, setActiveSponsor] = useState<SponsorData | null>(null);
   const [rainIntensity, setRainIntensity] = useState(160);
 
   const customuseLink = "https://go.customuse.com/kliptt0-ezvj";
   const customuseCode = "KLIPT";
   const customuseLocalImage = "/customuse_foto.jpg";
   const customuseRemoteImage = "https://logo.clearbit.com/customuse.com";
-  const temuLink = "https://temu.to/k/e76dfardq6g";
-  const temuCode = "ALE128679";
-  const temuLogo = "https://logo.clearbit.com/temu.com";
+  const temuLink = "https://temu.to/k/euxtfm72oia";
+  const temuCode = "frg02043";
+  const temuLocalImage = "/temu-logo.png";
+  const temuRemoteImage = "https://logo.clearbit.com/temu.com";
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 640px)");
@@ -91,6 +94,31 @@ export default function Home() {
     { label: "Ceredy", email: "cuentaytceredy@gmail.com" },
     { label: "Kliptt0", email: "kliptt0@gmail.com" },
     { label: "El Tocinito", email: "kliptt0@gmail.com" },
+  ];
+
+  const sponsors: SponsorData[] = [
+    {
+      name: "Customuse",
+      title: "Patrocinado por Customuse",
+      description: "Crea tu propio UGC para Roblox",
+      modalDescription: "Crea ropa y objetos UGC para Roblox con plantillas faciles de usar.",
+      highlight: "100 créditos gratis para crear objetos",
+      code: customuseCode,
+      href: customuseLink,
+      localImage: customuseLocalImage,
+      remoteImage: customuseRemoteImage,
+    },
+    {
+      name: "Temu",
+      title: "Patrocinado por Temu",
+      description: `30% de descuento con el código ${temuCode}`,
+      modalDescription: "Aprovecha el descuento para compras en la app o web de Temu.",
+      highlight: "Solo para nuevos usuarios",
+      code: temuCode,
+      href: temuLink,
+      localImage: temuLocalImage,
+      remoteImage: temuRemoteImage,
+    },
   ];
 
   return (
@@ -186,25 +214,22 @@ export default function Home() {
               </h3>
 
               <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-                <SponsorCard
-                  name="Customuse"
-                  title="Patrocinado por Customuse"
-                  description="Crea tu propio UGC para Roblox"
-                  highlight="100 créditos gratis para crear objetos"
-                  code={customuseCode}
-                  href={customuseLink}
-                  localImage={customuseLocalImage}
-                  remoteImage={customuseRemoteImage}
-                />
-                <SponsorCard
-                  name="Temu"
-                  title="Patrocinado por Temu"
-                  description="30% de descuento con el código ALE128679"
-                  highlight="Solo para nuevos usuarios"
-                  code={temuCode}
-                  href={temuLink}
-                  remoteImage={temuLogo}
-                />
+                {sponsors.map((sponsor) => (
+                  <SponsorCard
+                    key={sponsor.name}
+                    name={sponsor.name}
+                    title={sponsor.title}
+                    description={sponsor.description}
+                    highlight={sponsor.highlight}
+                    code={sponsor.code}
+                    localImage={sponsor.localImage}
+                    remoteImage={sponsor.remoteImage}
+                    onClick={() => {
+                      setActiveSponsor(sponsor);
+                      setSponsorOpen(true);
+                    }}
+                  />
+                ))}
               </div>
             </section>
 
@@ -375,6 +400,17 @@ export default function Home() {
             </div>
           </Modal>
 
+          <Modal
+            open={sponsorOpen && activeSponsor !== null}
+            onClose={() => {
+              setSponsorOpen(false);
+              setActiveSponsor(null);
+            }}
+            title={activeSponsor?.name ?? "Patrocinio"}
+          >
+            {activeSponsor && <SponsorModalContent sponsor={activeSponsor} />}
+          </Modal>
+
           <footer className="mt-10 text-center text-xs text-white/50">
             © {new Date().getFullYear()} SMEC - Ceredy01. Todos los derechos reservados.
           </footer>
@@ -413,7 +449,15 @@ function ActionCard({
   );
 }
 
-function CopyButton({ text }: { text: string }) {
+function CopyButton({
+  text,
+  label = "Copiar",
+  title = "Copiar contenido",
+}: {
+  text: string;
+  label?: string;
+  title?: string;
+}) {
   const [ok, setOk] = useState(false);
 
   const copy = async () => {
@@ -434,13 +478,25 @@ function CopyButton({ text }: { text: string }) {
         copy();
       }}
       className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
-      title="Copiar enlace"
+      title={title}
     >
       {ok ? <Check className="h-4 w-4 text-cyan-200" /> : <Copy className="h-4 w-4" />}
-      {ok ? "Copiado" : "Copiar"}
+      {ok ? "Copiado" : label}
     </button>
   );
 }
+
+type SponsorData = {
+  name: string;
+  title: string;
+  description: string;
+  modalDescription: string;
+  highlight: string;
+  code: string;
+  href: string;
+  localImage?: string;
+  remoteImage?: string;
+};
 
 function SponsorCard({
   name,
@@ -448,7 +504,7 @@ function SponsorCard({
   description,
   highlight,
   code,
-  href,
+  onClick,
   localImage,
   remoteImage,
 }: {
@@ -457,17 +513,17 @@ function SponsorCard({
   description: string;
   highlight: string;
   code: string;
-  href: string;
+  onClick: () => void;
   localImage?: string;
-  remoteImage: string;
+  remoteImage?: string;
 }) {
-  const [imgSrc, setImgSrc] = useState(localImage ?? remoteImage);
+  const fallbackImage = remoteImage ?? localImage ?? "";
+  const [imgSrc, setImgSrc] = useState(localImage ?? fallbackImage);
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
+    <button
+      type="button"
+      onClick={onClick}
       className="flex items-center justify-between gap-3 rounded-2xl border border-cyan-300/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"
     >
       <div className="flex min-w-0 items-center gap-3">
@@ -476,7 +532,7 @@ function SponsorCard({
           alt={name}
           className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover"
           onError={() => {
-            if (imgSrc !== remoteImage) setImgSrc(remoteImage);
+            if (imgSrc !== fallbackImage) setImgSrc(fallbackImage);
           }}
         />
         <div className="min-w-0">
@@ -488,6 +544,51 @@ function SponsorCard({
       <div className="rounded-xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-100">
         {code}
       </div>
-    </a>
+    </button>
+  );
+}
+
+function SponsorModalContent({ sponsor }: { sponsor: SponsorData }) {
+  const fallbackImage = sponsor.remoteImage ?? sponsor.localImage ?? "";
+
+  return (
+    <div className="grid gap-4">
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+        <div className="flex items-center gap-4">
+          <img
+            src={sponsor.localImage ?? fallbackImage}
+            alt={sponsor.name}
+            className="h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover"
+            onError={(e) => {
+              if (e.currentTarget.src !== fallbackImage) {
+                e.currentTarget.src = fallbackImage;
+              }
+            }}
+          />
+          <div>
+            <div className="text-lg font-bold text-white">{sponsor.title}</div>
+            <div className="text-sm text-white/70">{sponsor.modalDescription}</div>
+            <div className="mt-1 text-xs font-semibold text-cyan-200">{sponsor.highlight}</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-cyan-300/20 bg-cyan-300/10 p-5 text-center">
+        <div className="text-xs uppercase tracking-widest text-cyan-100/70">Código</div>
+        <div className="mt-2 text-4xl font-extrabold text-cyan-100">{sponsor.code}</div>
+        <div className="mt-3 flex justify-center">
+          <CopyButton text={sponsor.code} label="Copiar código" title="Copiar código promocional" />
+        </div>
+      </div>
+
+      <a
+        href={sponsor.href}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 py-3 text-sm font-bold text-white transition hover:opacity-95"
+      >
+        Ir a {sponsor.name} <ArrowUpRight className="h-4 w-4" />
+      </a>
+    </div>
   );
 }
