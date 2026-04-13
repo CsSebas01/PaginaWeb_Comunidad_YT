@@ -17,12 +17,16 @@ export default function Rain({ intensity = 90 }: { intensity?: number }) {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext("2d")!;
     let raf = 0;
+    let lastFrame = 0;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    const minFrameTime = reduceMotion ? 80 : isMobile ? 34 : 20;
 
     const drops: Drop[] = [];
     const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(canvas.clientWidth * dpr);
       canvas.height = Math.floor(canvas.clientHeight * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -41,7 +45,13 @@ export default function Rain({ intensity = 90 }: { intensity?: number }) {
       }
     };
 
-    const draw = () => {
+    const draw = (t: number) => {
+      if (t - lastFrame < minFrameTime) {
+        raf = requestAnimationFrame(draw);
+        return;
+      }
+      lastFrame = t;
+
       ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 
       for (const d of drops) {
@@ -64,7 +74,7 @@ export default function Rain({ intensity = 90 }: { intensity?: number }) {
 
     resize();
     init();
-    draw();
+    raf = requestAnimationFrame(draw);
 
     const onResize = () => {
       resize();

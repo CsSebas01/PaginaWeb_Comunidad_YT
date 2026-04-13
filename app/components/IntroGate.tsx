@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Rain from "./Rain";
 
+const ROBLOX_PROFILE_URL = "https://www.roblox.com/es/users/505776198/profile";
+
 export default function IntroGate({
   show,
   onEnter,
@@ -27,7 +29,7 @@ export default function IntroGate({
             />
             <div className="absolute inset-0 bg-[#02050f]/70" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_55%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.12),transparent_55%)]" />
-            <Rain intensity={180} />
+            <Rain intensity={140} />
           </div>
 
           <div className="neon-frame rounded-3xl">
@@ -41,9 +43,15 @@ export default function IntroGate({
 
               <div className="flex flex-col gap-5 md:flex-row md:items-center">
               <div className="flex shrink-0 justify-center md:justify-start">
-                <div className="h-20 w-20 overflow-hidden rounded-full ring-4 ring-cyan-300/25 shadow-[0_0_40px_rgba(56,189,248,0.14)] md:h-24 md:w-24">
+                <a
+                  href={ROBLOX_PROFILE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Abrir perfil de Roblox de Kliptt0"
+                  className="block h-20 w-20 overflow-hidden rounded-full ring-4 ring-cyan-300/25 shadow-[0_0_40px_rgba(56,189,248,0.14)] transition hover:ring-cyan-200 md:h-24 md:w-24"
+                >
                   <img src="/fotonacho.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
-                </div>
+                </a>
               </div>
 
               <div className="text-center md:text-left">

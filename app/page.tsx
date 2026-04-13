@@ -8,7 +8,8 @@ import MusicPlayer from "./components/MusicPlayer";
 import Modal from "./components/Modal";
 import Rain from "./components/Rain";
 import ShineCard from "./components/ShineCard";
-import VisitorBadge from "./components/VisitorBadge";
+
+const ROBLOX_PROFILE_URL = "https://www.roblox.com/es/users/505776198/profile";
 
 export default function Home() {
   const [entered, setEntered] = useState(false);
@@ -16,21 +17,26 @@ export default function Home() {
   const [ttOpen, setTtOpen] = useState(false);
   const [dcOpen, setDcOpen] = useState(false);
   const [mailOpen, setMailOpen] = useState(false);
-  const [cuOpen, setCuOpen] = useState(false);
   const [rainIntensity, setRainIntensity] = useState(160);
 
   const customuseLink = "https://go.customuse.com/kliptt0-ezvj";
   const customuseCode = "KLIPT";
   const customuseLocalImage = "/customuse_foto.jpg";
   const customuseRemoteImage = "https://logo.clearbit.com/customuse.com";
+  const temuLink = "https://temu.to/k/e76dfardq6g";
+  const temuCode = "ALE128679";
+  const temuLogo = "https://logo.clearbit.com/temu.com";
 
   useEffect(() => {
-    const update = () => {
-      setRainIntensity(window.matchMedia("(max-width: 640px)").matches ? 110 : 160);
+    const query = window.matchMedia("(max-width: 640px)");
+    const update = (event?: MediaQueryListEvent) => {
+      const mobile = event ? event.matches : query.matches;
+      setRainIntensity(mobile ? 100 : 150);
     };
+
     update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
 
   const youtubeChannels = [
@@ -135,19 +141,32 @@ export default function Home() {
 
             <div className="flex items-start gap-6 md:flex-row md:gap-10">
               <div className="shrink-0">
-                <div className="h-28 w-28 overflow-hidden rounded-full ring-4 ring-cyan-300/40 md:h-32 md:w-32">
-                <img src="/fotonacho.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
+                <a
+                  href={ROBLOX_PROFILE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Abrir perfil de Roblox de Kliptt0"
+                  className="block h-28 w-28 overflow-hidden rounded-full ring-4 ring-cyan-300/40 transition hover:ring-cyan-200 md:h-32 md:w-32"
+                >
+                  <img src="/fotonacho.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
+                </a>
+              </div>
+
+              <div className="flex-1">
+                <a
+                  href={ROBLOX_PROFILE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block text-3xl font-extrabold text-cyan-100/90 transition hover:text-cyan-200"
+                >
+                  Kliptt0
+                </a>
+                <p className="mt-2 text-white/70">
+                  Gaming, entretenimiento y shorts con una comunidad que no para de crecer. Elige tu plataforma
+                  y únete al viaje.
+                </p>
               </div>
             </div>
-
-            <div className="flex-1">
-              <h2 className="text-3xl font-extrabold text-cyan-100/90">Kliptt0</h2>
-              <p className="mt-2 text-white/70">
-                Gaming, entretenimiento y shorts con una comunidad que no para de crecer. Elige tu plataforma
-                y únete al viaje.
-              </p>
-            </div>
-          </div>
 
             <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
               <ActionCard title="YouTube" subtitle="Ver Canales" Icon={Youtube} onClick={() => setYtOpen(true)} />
@@ -161,33 +180,33 @@ export default function Home() {
               <ActionCard title="Gmail" subtitle="Colaboraciones" Icon={Mail} onClick={() => setMailOpen(true)} />
             </div>
 
-            <button
-              onClick={() => setCuOpen(true)}
-              className="mt-6 flex w-full items-center justify-between rounded-2xl border border-cyan-300/20 bg-white/5 px-4 py-3 text-left transition hover:bg-white/10"
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={customuseLocalImage}
-                  alt="Customuse"
-                  className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover sm:hidden"
-                  onError={(e) => {
-                    e.currentTarget.src = customuseRemoteImage;
-                  }}
+            <section className="mt-6 rounded-2xl border border-cyan-300/20 bg-white/5 p-4">
+              <h3 className="text-sm font-extrabold uppercase tracking-wide text-cyan-100/90">
+                Patrocinios disponibles
+              </h3>
+
+              <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+                <SponsorCard
+                  name="Customuse"
+                  title="Patrocinado por Customuse"
+                  description="Crea tu propio UGC para Roblox"
+                  highlight="100 créditos gratis para crear objetos"
+                  code={customuseCode}
+                  href={customuseLink}
+                  localImage={customuseLocalImage}
+                  remoteImage={customuseRemoteImage}
                 />
-                <img
-                  src={customuseRemoteImage}
-                  alt="Customuse"
-                  className="hidden h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover sm:block"
+                <SponsorCard
+                  name="Temu"
+                  title="Patrocinado por Temu"
+                  description="30% de descuento con el código ALE128679"
+                  highlight="Solo para nuevos usuarios"
+                  code={temuCode}
+                  href={temuLink}
+                  remoteImage={temuLogo}
                 />
-                <div>
-                  <div className="text-sm font-bold text-white">Patrocinado por Customuse</div>
-                  <div className="text-xs text-white/60">Crea tu propio UGC para Roblox</div>
-                </div>
               </div>
-              <div className="rounded-xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-100">
-                {customuseCode}
-              </div>
-            </button>
+            </section>
 
             <a
               href="https://www.youtube.com/@kliptt0?sub_confirmation=1"
@@ -356,56 +375,12 @@ export default function Home() {
             </div>
           </Modal>
 
-          <Modal open={cuOpen} onClose={() => setCuOpen(false)} title="Customuse">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="flex items-center gap-4">
-                <img
-                  src={customuseLocalImage}
-                  alt="Customuse"
-                  className="h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover sm:hidden"
-                  onError={(e) => {
-                    e.currentTarget.src = customuseRemoteImage;
-                  }}
-                />
-                <img
-                  src={customuseRemoteImage}
-                  alt="Customuse"
-                  className="hidden h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover sm:block"
-                />
-                <div>
-                  <div className="text-lg font-bold text-white">Customuse x Kliptt0</div>
-                  <div className="text-sm text-white/70">
-                    Disena ropa y UGC para Roblox de forma rapida y con plantillas pro.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-2xl border border-cyan-300/20 bg-cyan-300/10 p-5 text-center">
-              <div className="text-xs uppercase tracking-widest text-cyan-100/70">Codigo</div>
-              <div className="mt-2 text-4xl font-extrabold text-cyan-100">{customuseCode}</div>
-              <div className="mt-3 flex justify-center">
-                <CopyButton text={customuseCode} />
-              </div>
-            </div>
-
-            <a
-              href={customuseLink}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 py-3 text-sm font-bold text-white transition hover:opacity-95"
-            >
-              Ir a Customuse <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </Modal>
-
           <footer className="mt-10 text-center text-xs text-white/50">
             © {new Date().getFullYear()} SMEC - Ceredy01. Todos los derechos reservados.
           </footer>
         </div>
       )}
 
-      <VisitorBadge />
       <MusicPlayer />
     </main>
   );
@@ -464,5 +439,55 @@ function CopyButton({ text }: { text: string }) {
       {ok ? <Check className="h-4 w-4 text-cyan-200" /> : <Copy className="h-4 w-4" />}
       {ok ? "Copiado" : "Copiar"}
     </button>
+  );
+}
+
+function SponsorCard({
+  name,
+  title,
+  description,
+  highlight,
+  code,
+  href,
+  localImage,
+  remoteImage,
+}: {
+  name: string;
+  title: string;
+  description: string;
+  highlight: string;
+  code: string;
+  href: string;
+  localImage?: string;
+  remoteImage: string;
+}) {
+  const [imgSrc, setImgSrc] = useState(localImage ?? remoteImage);
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center justify-between gap-3 rounded-2xl border border-cyan-300/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"
+    >
+      <div className="flex min-w-0 items-center gap-3">
+        <img
+          src={imgSrc}
+          alt={name}
+          className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover"
+          onError={() => {
+            if (imgSrc !== remoteImage) setImgSrc(remoteImage);
+          }}
+        />
+        <div className="min-w-0">
+          <div className="truncate text-sm font-bold text-white">{title}</div>
+          <div className="truncate text-xs text-white/60">{description}</div>
+          <div className="text-xs font-semibold text-cyan-200">{highlight}</div>
+        </div>
+      </div>
+      <div className="rounded-xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-100">
+        {code}
+      </div>
+    </a>
   );
 }

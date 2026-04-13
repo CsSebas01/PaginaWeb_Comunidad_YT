@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Howl, Howler } from "howler";
 import { Minimize2, Music, Pause, Play, Volume2, VolumeX } from "lucide-react";
 
@@ -33,11 +33,32 @@ export default function MusicPlayer() {
   const [minimized, setMinimized] = useState(false);
   const [bubblePos, setBubblePos] = useState<Point>({ x: 16, y: 140 });
 
-  const [state, setState] = useState<PlayerState>({
-    enabled: false,
-    muted: false,
-    volume: 0.35,
-    playing: false,
+  const [state, setState] = useState<PlayerState>(() => {
+    const defaultState: PlayerState = {
+      enabled: false,
+      muted: false,
+      volume: 0.35,
+      playing: false,
+    };
+
+    if (typeof window === "undefined") return defaultState;
+
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return defaultState;
+      const parsed = JSON.parse(raw) as Partial<PlayerState>;
+      return {
+        enabled: !!parsed.enabled,
+        muted: !!parsed.muted,
+        playing: !!parsed.playing,
+        volume:
+          typeof parsed.volume === "number"
+            ? Math.min(1, Math.max(0, parsed.volume))
+            : defaultState.volume,
+      };
+    } catch {
+      return defaultState;
+    }
   });
 
   useEffect(() => {
@@ -53,35 +74,22 @@ export default function MusicPlayer() {
   }, []);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const parsed = JSON.parse(raw) as Partial<PlayerState>;
-      setState((s) => ({
-        enabled: !!parsed.enabled,
-        muted: !!parsed.muted,
-        playing: !!parsed.playing,
-        volume:
-          typeof parsed.volume === "number"
-            ? Math.min(1, Math.max(0, parsed.volume))
-            : s.volume,
-      }));
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  useMemo(() => {
     if (typeof window === "undefined") return;
 
-    if (!soundRef.current) {
+    if (soundRef.current === null) {
       soundRef.current = new Howl({
         src: [AUDIO_SRC],
         loop: true,
-        volume: state.volume,
+        volume: 0.35,
         html5: false,
       });
     }
+
+    return () => {
+      soundRef.current?.stop();
+      soundRef.current?.unload();
+      soundRef.current = null;
+    };
   }, []);
 
   useEffect(() => {
