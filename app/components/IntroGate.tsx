@@ -59,10 +59,10 @@ export default function IntroGate({
                 <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row sm:items-center sm:justify-start">
                   <button
                     onClick={onEnter}
-                    className="relative w-full overflow-hidden rounded-2xl px-8 py-3.5 font-bold text-white sm:w-auto"
+                    className="group relative w-full overflow-hidden rounded-2xl px-8 py-3.5 font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(34,211,238,0.18)] sm:w-auto md:min-w-64"
                   >
                     <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400" />
-                    <span className="absolute -inset-x-24 -inset-y-12 -translate-x-[-120%] rotate-12 bg-gradient-to-r from-transparent via-white/25 to-transparent transition duration-700 hover:translate-x-[120%]" />
+                    <span className="absolute -inset-x-24 -inset-y-12 -translate-x-[-120%] rotate-12 bg-gradient-to-r from-transparent via-white/25 to-transparent transition duration-700 group-hover:translate-x-[120%]" />
                     <span className="relative">Entrar</span>
                   </button>
                 </div>

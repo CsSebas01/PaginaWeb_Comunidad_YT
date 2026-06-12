@@ -238,11 +238,11 @@ export default function Home() {
               href="https://www.youtube.com/@kliptt0?sub_confirmation=1"
               target="_blank"
               rel="noreferrer"
-              className="mt-8 block"
+              className="group mt-8 block"
             >
-              <div className="relative overflow-hidden rounded-2xl">
+              <div className="relative overflow-hidden rounded-2xl transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_36px_rgba(34,211,238,0.18)]">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400" />
-                <div className="absolute -inset-x-24 -inset-y-12 -translate-x-[-120%] rotate-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition duration-700 hover:translate-x-[120%]" />
+                <div className="absolute -inset-x-24 -inset-y-12 -translate-x-[-120%] rotate-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition duration-700 group-hover:translate-x-[120%]" />
                 <div className="relative py-4 text-center text-lg font-bold text-white">¡SUSCRÍBETE AHORA!</div>
               </div>
             </a>
