@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import Rain from "./Rain";
 
 const ROBLOX_PROFILE_URL = "https://www.roblox.com/es/users/505776198/profile";
@@ -12,14 +11,11 @@ export default function IntroGate({
   show: boolean;
   onEnter: () => void;
 }) {
+  if (!show) return null;
+
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div
+        <div
           className="neon-cycle fixed inset-0 z-[60] flex items-center justify-center p-4"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.35 }}
         >
           <div className="absolute inset-0 pointer-events-none">
             <img
@@ -33,11 +29,8 @@ export default function IntroGate({
           </div>
 
           <div className="neon-frame rounded-3xl">
-            <motion.div
+            <div
               className="relative w-full max-w-2xl rounded-3xl bg-[#07101d]/78 p-6 backdrop-blur-xl md:p-8"
-              initial={{ y: 24, opacity: 0, scale: 0.98 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
             >
               <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/10" />
 
@@ -75,10 +68,8 @@ export default function IntroGate({
                 </div>
               </div>
               </div>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </div>
   );
 }

@@ -1,8 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Check, Copy, Instagram, Mail, MessageCircle, Music2, Youtube } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Instagram, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
 import IntroGate from "./components/IntroGate";
 import MusicPlayer from "./components/MusicPlayer";
 import Modal from "./components/Modal";
@@ -26,7 +25,7 @@ export default function Home() {
   const customuseLocalImage = "/customuse_foto.jpg";
   const customuseRemoteImage = "https://logo.clearbit.com/customuse.com";
   const temuLink = "https://temu.to/k/euxtfm72oia";
-  const temuCode = "frg02043";
+  const temuCode = "ale128679";
   const temuLocalImage = "/temu-logo.png";
   const temuRemoteImage = "https://logo.clearbit.com/temu.com";
 
@@ -45,21 +44,21 @@ export default function Home() {
   const youtubeChannels = [
     {
       name: "Kliptt0",
-      subs: "2M+",
+      subs: "2.2M+ Suscriptores",
       tags: ["Gaming", "Entretenimiento", "Shorts"],
       url: "https://www.youtube.com/@kliptt0",
       avatar: "/fotonacho.jpeg",
     },
     {
       name: "Ceredy",
-      subs: "50K+",
+      subs: "150K+ Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@Ceredy1",
       avatar: "/fotosebas.jpg",
     },
     {
       name: "El Tocinito",
-      subs: "75K+",
+      subs: "140K+ Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@eltocinito890",
       avatar: "/fotonacho.jpeg",
@@ -84,9 +83,16 @@ export default function Home() {
     {
       platform: "Instagram",
       name: "kliptt0",
-      followers: "400+",
+      followers: "1.6K+",
       url: "https://www.instagram.com/kliptt0?igsh=b2p1Y3IwYzdndWtk",
       avatar: "/instagram.png",
+    },
+    {
+      platform: "Kick",
+      name: "kliptt",
+      followers: "",
+      url: "https://kick.com/kliptt",
+      avatar: "/fotonacho.jpeg",
     },
   ];
 
@@ -159,12 +165,7 @@ export default function Home() {
           </div>
 
           <div className="neon-frame rounded-3xl">
-            <motion.section
-              initial={{ opacity: 0, y: 18, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="relative rounded-3xl bg-[#07101d]/78 p-6 backdrop-blur-2xl md:p-10"
-            >
+            <section className="relative rounded-3xl bg-[#07101d]/78 p-6 backdrop-blur-2xl md:p-10">
               <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/8" />
 
             <div className="flex items-start gap-6 md:flex-row md:gap-10">
@@ -245,7 +246,7 @@ export default function Home() {
                 <div className="relative py-4 text-center text-lg font-bold text-white">¡SUSCRÍBETE AHORA!</div>
               </div>
             </a>
-            </motion.section>
+            </section>
           </div>
 
           <Modal open={ytOpen} onClose={() => setYtOpen(false)} title="Canales de YouTube">
@@ -296,7 +297,7 @@ export default function Home() {
 
           </Modal>
 
-          <Modal open={ttOpen} onClose={() => setTtOpen(false)} title="TikTok e Instagram">
+          <Modal open={ttOpen} onClose={() => setTtOpen(false)} title="TikTok, Instagram y Kick">
             <div className="mb-4 text-sm text-white/70">
               Clips, highlights y contenido diario. Sígueme para no perderte nada.
             </div>
@@ -315,6 +316,10 @@ export default function Home() {
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
                         <Instagram className="h-6 w-6 text-white/80" />
                       </div>
+                    ) : a.platform === "Kick" ? (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                        <Radio className="h-6 w-6 text-cyan-200/90" />
+                      </div>
                     ) : (
                       <img
                         src={a.avatar}
@@ -326,7 +331,7 @@ export default function Home() {
                       <div className="font-bold text-white">
                         {a.platform} — {a.name}
                       </div>
-                      <div className="text-sm text-white/60">{a.followers} seguidores</div>
+                      {a.followers && <div className="text-sm text-white/60">{a.followers} seguidores</div>}
                     </div>
                   </div>
 
