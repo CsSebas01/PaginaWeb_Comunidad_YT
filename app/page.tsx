@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, BadgeCheck, Check, Copy, Instagram, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Check, Copy, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
 import IntroGate from "./components/IntroGate";
 import MusicPlayer from "./components/MusicPlayer";
 import Modal from "./components/Modal";
@@ -28,7 +28,6 @@ export default function Home() {
   const temuCode = "ale128679";
   const temuLocalImage = "/temu-logo.png";
   const temuRemoteImage = "https://logo.clearbit.com/temu.com";
-  const bloxbeamLink = "https://www.bloxbeam.com/";
 
   useEffect(() => {
     const query = window.matchMedia("(min-width: 1025px)");
@@ -44,23 +43,23 @@ export default function Home() {
   const youtubeChannels = [
     {
       name: "Kliptt0",
-      subs: "2.36 Mill + Suscriptores",
+      subs: "2.47 Mill + Suscriptores",
       tags: ["Gaming", "Entretenimiento", "Shorts"],
       url: "https://www.youtube.com/@kliptt0",
-      avatar: "/fotonacho.jpeg",
+      avatar: "/kliptt0-actualizado.jpeg",
     },
     {
       name: "Ceredy",
-      subs: "255k + Suscriptores",
+      subs: "327k + Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@Ceredy1",
-      avatar: "/fotosebas.jpg",
+      avatar: "/ceredy-youtube.png",
     },
     {
       name: "Bulldog Reacciona",
-      subs: "280k + Suscriptores",
+      subs: "503k + Suscriptores",
       tags: ["Gaming", "Shorts"],
-      url: "https://www.youtube.com/@eltocinito890",
+      url: "https://www.youtube.com/@PibblecitoReacciones",
       avatar: "/bulldog-reacciona.jpeg",
     },
   ];
@@ -69,30 +68,37 @@ export default function Home() {
     {
       platform: "TikTok",
       name: "klipt0",
-      followers: "168K+",
+      followers: "187K+",
       url: "https://www.tiktok.com/@klipt0?_r=1&_t=ZS-945T5su5DMr",
-      avatar: "/fotonacho.jpeg",
+      avatar: "/kliptt0-actualizado.jpeg",
     },
     {
       platform: "TikTok",
       name: "kliptt0_0",
-      followers: "38k+",
+      followers: "127k+",
       url: "https://www.tiktok.com/@kliptt0_0?_r=1&_t=ZS-945T8Kiboyj",
-      avatar: "/fotonacho.jpeg",
+      avatar: "/kliptt0-actualizado.jpeg",
     },
     {
       platform: "Instagram",
       name: "kliptt0",
-      followers: "9500+",
+      followers: "20k+",
       url: "https://www.instagram.com/kliptt0?igsh=b2p1Y3IwYzdndWtk",
-      avatar: "/instagram.png",
+      avatar: "/kliptt0-actualizado.jpeg",
     },
     {
       platform: "Kick",
       name: "kliptt",
       followers: "",
       url: "https://kick.com/kliptt",
-      avatar: "/fotonacho.jpeg",
+      avatar: "/kliptt0-actualizado.jpeg",
+    },
+    {
+      platform: "Facebook",
+      name: "Kliptt Roblox",
+      followers: "8k",
+      url: "https://www.facebook.com/people/Kliptt-Roblox/61591312348559/",
+      avatar: "/kliptt0-actualizado.jpeg",
     },
   ];
 
@@ -124,17 +130,6 @@ export default function Home() {
       href: temuLink,
       localImage: temuLocalImage,
       remoteImage: temuRemoteImage,
-    },
-    {
-      name: "Bloxbeam",
-      title: "Patrocinado por Bloxbeam",
-      description: "10% de descuento con el código KLIPT",
-      modalDescription: "Encuentra objetos y artículos para tus juegos favoritos con entrega automatizada.",
-      highlight: "Usa el código KLIPT al finalizar tu compra",
-      code: "KLIPT",
-      href: bloxbeamLink,
-      localImage: "/bloxbeam-logo.avif",
-      logoFit: "contain",
     },
   ];
 
@@ -191,7 +186,7 @@ export default function Home() {
                   aria-label="Abrir perfil de Roblox de Kliptt0"
                   className="block h-28 w-28 overflow-hidden rounded-full ring-4 ring-cyan-300/40 transition hover:ring-cyan-200 md:h-32 md:w-32"
                 >
-                  <img src="/fotonacho.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
+                  <img src="/kliptt0-actualizado.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
                 </a>
               </div>
 
@@ -233,7 +228,7 @@ export default function Home() {
               </h3>
 
               <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-                {sponsors.map((sponsor, index) => (
+                {sponsors.map((sponsor) => (
                   <SponsorCard
                     key={sponsor.name}
                     name={sponsor.name}
@@ -244,7 +239,6 @@ export default function Home() {
                     localImage={sponsor.localImage}
                     remoteImage={sponsor.remoteImage}
                     logoFit={sponsor.logoFit}
-                    className={index === sponsors.length - 1 ? "lg:col-span-2" : ""}
                     onClick={() => {
                       setActiveSponsor(sponsor);
                       setSponsorOpen(true);
@@ -334,7 +328,7 @@ export default function Home() {
 
           </Modal>
 
-          <Modal open={ttOpen} onClose={() => setTtOpen(false)} title="TikTok, Instagram y Kick">
+          <Modal open={ttOpen} onClose={() => setTtOpen(false)} title="TikTok, Instagram, Kick y Facebook">
             <div className="mb-4 text-sm text-white/70">
               Clips, highlights y contenido diario. Sígueme para no perderte nada.
             </div>
@@ -349,11 +343,7 @@ export default function Home() {
                   className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
                 >
                   <div className="flex items-center gap-4">
-                    {a.platform === "Instagram" ? (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
-                        <Instagram className="h-6 w-6 text-white/80" />
-                      </div>
-                    ) : a.platform === "Kick" ? (
+                    {a.platform === "Kick" ? (
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
                         <Radio className="h-6 w-6 text-cyan-200/90" />
                       </div>
@@ -597,31 +587,46 @@ function SponsorCard({
 }
 
 function RobloxCatalogCard() {
-  const catalogUrl = "https://www.roblox.com/es/catalog/78160258117526/Pibble-Abejita";
-  const imageUrl = "https://tr.rbxcdn.com/180DAY-530208472ae0686c8680c1323b32a45b/420/420/ShoulderAccessory/Webp/noFilter";
+  const catalogItems = [
+    {
+      name: "Pibble Abejita",
+      href: "https://www.roblox.com/es/catalog/78160258117526/Pibble-Abejita",
+      image: "https://tr.rbxcdn.com/180DAY-530208472ae0686c8680c1323b32a45b/420/420/ShoulderAccessory/Webp/noFilter",
+    },
+    {
+      name: "Pibble Calabaza",
+      href: "https://www.roblox.com/es/catalog/122210770871843/Pibble-Calabaza",
+      image: "/pibble-calabaza.png",
+    },
+  ];
 
   return (
-    <a
-      href={catalogUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="group mt-3 flex items-center justify-between gap-4 rounded-2xl border border-cyan-300/20 bg-white/5 p-3 transition hover:bg-white/10"
-    >
-      <div className="flex min-w-0 items-center gap-4">
-        <img
-          src={imageUrl}
-          alt="Pibble Abejita"
-          className="h-16 w-16 rounded-2xl border border-white/10 bg-yellow-300/10 object-contain"
-        />
-        <div className="min-w-0">
-          <div className="font-bold text-white">Pibble Abejita</div>
-          <div className="mt-1 text-sm text-white/65">Objeto UGC para tu avatar de Roblox.</div>
-        </div>
-      </div>
-      <span className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-3 py-2 text-sm font-bold text-cyan-100 transition group-hover:bg-cyan-300/20">
-        Ver objeto <ArrowUpRight className="h-4 w-4" />
-      </span>
-    </a>
+    <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+      {catalogItems.map((item) => (
+        <a
+          key={item.href}
+          href={item.href}
+          target="_blank"
+          rel="noreferrer"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-cyan-300/20 bg-white/5 p-3 transition hover:bg-white/10"
+        >
+          <div className="flex min-w-0 items-center gap-4">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="h-16 w-16 rounded-2xl border border-white/10 bg-yellow-300/10 object-contain"
+            />
+            <div className="min-w-0">
+              <div className="font-bold text-white">{item.name}</div>
+              <div className="mt-1 text-sm text-white/65">Objeto UGC para tu avatar de Roblox.</div>
+            </div>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-3 py-2 text-sm font-bold text-cyan-100 transition group-hover:bg-cyan-300/20">
+            Ver objeto <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </a>
+      ))}
+    </div>
   );
 }
 

@@ -57,7 +57,7 @@ export default function IntroGate({
                   aria-label="Abrir perfil de Roblox de Kliptt0"
                   className="block h-20 w-20 overflow-hidden rounded-full ring-4 ring-cyan-300/25 shadow-[0_0_40px_rgba(56,189,248,0.14)] transition hover:ring-cyan-200 md:h-24 md:w-24"
                 >
-                  <img src="/fotonacho.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
+                  <img src="/kliptt0-actualizado.jpeg" alt="Kliptt0" className="h-full w-full object-cover" />
                 </a>
               </div>
 
