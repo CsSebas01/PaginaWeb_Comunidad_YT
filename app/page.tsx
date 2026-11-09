@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, BadgeCheck, Check, Copy, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Check, Copy, Instagram, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
 import IntroGate from "./components/IntroGate";
 import MusicPlayer from "./components/MusicPlayer";
 import Modal from "./components/Modal";
@@ -43,24 +43,38 @@ export default function Home() {
   const youtubeChannels = [
     {
       name: "Kliptt0",
-      subs: "2.47 Mill + Suscriptores",
+      subs: "2.5 Mill + Suscriptores",
       tags: ["Gaming", "Entretenimiento", "Shorts"],
       url: "https://www.youtube.com/@kliptt0",
       avatar: "/kliptt0-actualizado.jpeg",
     },
     {
       name: "Ceredy",
-      subs: "327k + Suscriptores",
+      subs: "356k + Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@Ceredy1",
       avatar: "/ceredy-youtube.png",
     },
     {
       name: "Bulldog Reacciona",
-      subs: "503k + Suscriptores",
+      subs: "645k + Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@PibblecitoReacciones",
       avatar: "/bulldog-reacciona.jpeg",
+    },
+    {
+      name: "KliptCraft",
+      subs: "90k + Suscriptores",
+      tags: ["Gaming", "Shorts"],
+      url: "https://www.youtube.com/@KLIPTCRAFT",
+      avatar: "/kliptcraft.jpg",
+    },
+    {
+      name: "Tiburoncito Reacciona",
+      subs: "600 Suscriptores",
+      tags: ["Gaming", "Shorts"],
+      url: "https://www.youtube.com/@PibbleTiburoncitoR",
+      avatar: "/tiburoncito-reacciona.jpg",
     },
   ];
 
@@ -100,12 +114,19 @@ export default function Home() {
       url: "https://www.facebook.com/people/Kliptt-Roblox/61591312348559/",
       avatar: "/kliptt0-actualizado.jpeg",
     },
+    {
+      platform: "WhatsApp",
+      name: "",
+      followers: "",
+      url: "https://whatsapp.com/channel/0029VbD5h7AKLaHopmI5Hp3b",
+      avatar: "",
+    },
   ];
 
   const emails = [
     { label: "Ceredy", email: "cuentaytceredy@gmail.com" },
     { label: "Kliptt0", email: "kliptt0@gmail.com" },
-    { label: "El Tocinito", email: "kliptt0@gmail.com" },
+    { label: "Bulldog Reacciona", email: "kliptt0@gmail.com" },
   ];
 
   const sponsors: SponsorData[] = [
@@ -212,7 +233,7 @@ export default function Home() {
 
             <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
               <ActionCard title="YouTube" subtitle="Ver Canales" Icon={Youtube} onClick={() => setYtOpen(true)} />
-              <ActionCard title="TikTok" subtitle="Ver Cuentas" Icon={Music2} onClick={() => setTtOpen(true)} />
+              <ActionCard title="TikTok +" subtitle="Ver Cuentas" Icon={Music2} onClick={() => setTtOpen(true)} />
               <ActionCard
                 title="Discord"
                 subtitle="Únete al Servidor"
@@ -301,7 +322,7 @@ export default function Home() {
                         <span className="truncate">{c.name}</span>
                         <BadgeCheck className="h-4 w-4 shrink-0 text-cyan-200" aria-label="Canal verificado" />
                       </div>
-                      <div className="text-sm text-white/60">{c.subs}</div>
+                      {c.subs && <div className="text-sm text-white/60">{c.subs}</div>}
                       <div className="truncate text-xs text-white/40">{c.url}</div>
                       <div className="mt-1 flex flex-wrap gap-2">
                         {c.tags.map((t) => (
@@ -328,7 +349,7 @@ export default function Home() {
 
           </Modal>
 
-          <Modal open={ttOpen} onClose={() => setTtOpen(false)} title="TikTok, Instagram, Kick y Facebook">
+          <Modal open={ttOpen} onClose={() => setTtOpen(false)} title="TikTok y más redes">
             <div className="mb-4 text-sm text-white/70">
               Clips, highlights y contenido diario. Sígueme para no perderte nada.
             </div>
@@ -343,7 +364,17 @@ export default function Home() {
                   className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
                 >
                   <div className="flex items-center gap-4">
-                    {a.platform === "Kick" ? (
+                    {a.platform === "Instagram" ? (
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr from-yellow-400 via-pink-600 to-purple-700">
+                        <Instagram aria-hidden="true" className="h-7 w-7 text-white" />
+                      </div>
+                    ) : a.platform === "WhatsApp" ? (
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#25D366]">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-8 w-8 fill-white">
+                          <path d="M12.04 2C6.55 2 2.08 6.47 2.08 11.96c0 1.76.46 3.47 1.33 4.98L2 22l5.19-1.36a9.96 9.96 0 0 0 4.85 1.24h.01c5.49 0 9.95-4.47 9.95-9.96C22 6.45 17.54 2 12.04 2Zm0 18.2a8.25 8.25 0 0 1-4.2-1.15l-.3-.18-3.08.81.82-3-.19-.31a8.25 8.25 0 1 1 6.95 3.83Zm4.52-6.17c-.25-.13-1.47-.73-1.7-.81-.23-.08-.39-.13-.56.12-.17.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.18 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.17-.48-.3Z" />
+                        </svg>
+                      </div>
+                    ) : a.platform === "Kick" ? (
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
                         <Radio className="h-6 w-6 text-cyan-200/90" />
                       </div>
@@ -356,7 +387,7 @@ export default function Home() {
                     )}
                     <div>
                       <div className="font-bold text-white">
-                        {a.platform} — {a.name}
+                        {a.platform}{a.name && ` — ${a.name}`}
                       </div>
                       {a.followers && <div className="text-sm text-white/60">{a.followers} seguidores</div>}
                     </div>
@@ -375,12 +406,10 @@ export default function Home() {
               <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.18),transparent_55%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.18),transparent_55%)]" />
                 <div className="relative flex items-center gap-4 p-5">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_40px_rgba(34,211,238,0.14)]">
-                    <MessageCircle className="h-7 w-7 text-cyan-200/90" />
-                  </div>
+                  <img src="/comunidad-pibble.png" alt="Comunidad Pibble" className="h-14 w-14 shrink-0 rounded-2xl border border-white/10 object-cover" />
 
                   <div className="min-w-0">
-                    <div className="text-lg font-bold text-white">Servidor Oficial</div>
+                    <div className="text-lg font-bold text-white">Comunidad Pibble</div>
                     <div className="text-sm text-white/60">
                       Chat, avisos, clips, eventos y soporte de la comunidad.
                     </div>
@@ -402,12 +431,14 @@ export default function Home() {
                   <div className="mt-1 text-xs text-white/60">No te pierdas directos y novedades.</div>
                 </div>
               </div>
-              <button
-                disabled
-                className="w-full cursor-not-allowed rounded-2xl bg-white/10 py-3 font-bold text-white/40"
+              <a
+                href="https://discord.gg/mGteNbjhU"
+                target="_blank"
+                rel="noreferrer"
+                className="block w-full rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-400 py-3 text-center font-bold text-white transition hover:brightness-110"
               >
-                Invitación próximamente
-              </button>
+                Unirse a Comunidad Pibble
+              </a>
             </div>
           </Modal>
 
@@ -598,6 +629,21 @@ function RobloxCatalogCard() {
       href: "https://www.roblox.com/es/catalog/122210770871843/Pibble-Calabaza",
       image: "/pibble-calabaza.png",
     },
+    {
+      name: "PIBBLE ABEJITA TIERNA",
+      href: "https://www.roblox.com/es/catalog/107403745195262/PIBBLE-ABEJITA-TIERNA",
+      image: "/pibble-abejita-tierna.png",
+    },
+    {
+      name: "TIBURÓN PIBBLE",
+      href: "https://www.roblox.com/es/catalog/76214466302109/TIBUR-N-PIBBLE",
+      image: "/tiburon-pibble.png",
+    },
+    {
+      name: "DIABLITO DE PIBBLE",
+      href: "https://www.roblox.com/es/catalog/75543587040623/DIABLITO-DE-PIBBLE",
+      image: "/diablito-de-pibble.png",
+    },
   ];
 
   return (
@@ -654,19 +700,19 @@ function RobloxGroups() {
       </a>
 
       <a
-        href="https://www.roblox.com/es/communities/5488916/robloxian-girl-boys-D#!/about"
+        href="https://www.roblox.com/es/communities/5149797/KliptLand#!/store"
         target="_blank"
         rel="noreferrer"
         className="group overflow-hidden rounded-2xl border border-cyan-300/20 bg-white/5 transition hover:bg-white/10"
       >
         <img
-          src="/grupo-robloxian-girl-boys.png"
-          alt="Grupo de Roblox robloxian girl/boys"
+          src="/grupo-kliptland.png"
+          alt="Grupo de Roblox KliptLand"
           className="aspect-video w-full object-cover"
         />
         <div className="flex items-center justify-between gap-3 p-4">
           <div>
-            <div className="font-bold text-white">robloxian girl/boys :D</div>
+            <div className="font-bold text-white">KliptLand</div>
             <div className="mt-1 text-sm text-white/65">Grupo de Kliptt0</div>
           </div>
           <ArrowUpRight className="h-5 w-5 shrink-0 text-cyan-200 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
